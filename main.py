@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from httpx import get
+from httpx import get, post
 
 app = FastAPI()
 
@@ -36,3 +36,9 @@ def get_task_by_id(task_id:int):
 @app.get("/healthcheck")
 def healthcheck():
     return {"status":"ok"}
+
+@app.post("/task")
+def create_task(task:dict):
+    task["id"]=len(Task)+1
+    Task.append(task)
+    return task
